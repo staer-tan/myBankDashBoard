@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://v3.bootcss.com/examples/dashboard/ -->
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+
+    <title>银行数据总览</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="./BootstrapDashboard_files/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="bootstrap/dashboard.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://v3.bootcss.com/examples/dashboard/#">银行大数据平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Dashboard</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Settings</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a th:href="@{/dashboard(start=0)}">总览 <span class="sr-only">(current)</span></a></li>
+                <li><a th:href="@{/bankofchina(start=0)}">中国银行</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">交通银行</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">招商银行</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">中国农业银行</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">中国建设银行</a></li>
+                <li><a href="https://v3.bootcss.com/examples/dashboard/#">邮政储蓄银行</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Dashboard</h1>
+            <div class="dropdown">
+                <form action="#">
+                    <label for="addr-show">您选择的是：
+                        <input type="text" value="" id="addr-show">
+                    </label>
+                    <br/>
+
+                    <!--省份选择-->
+                    <select id="prov" onchange="showCity(this)">
+                        <option>=请选择省份=</option>
+
+                    </select>
+
+                    <!--城市选择-->
+                    <select id="city" onchange="showCountry(this)">
+                        <option>=请选择城市=</option>
+                    </select>
+
+                    <!--县区选择-->
+                    <select id="country" onchange="selecCountry(this)">
+                        <option>=请选择县区=</option>
+                    </select>
+                    <button type="button" class="btn met1" onClick="showAddr()">确定</button>
+                    <a th:href="@{/searchBank(searchStr=id)}">
+                        <button>点我跳转到度娘！</button>
+                    </a>
+                </form>
+            </div>
+
+            <!-- <div class="row placeholders">
+              <div class="col-xs-6 col-sm-3 placeholder">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                <h4>Label</h4>
+                <span class="text-muted">Something else</span>
+              </div>
+              <div class="col-xs-6 col-sm-3 placeholder">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                <h4>Label</h4>
+                <span class="text-muted">Something else</span>
+              </div>
+              <div class="col-xs-6 col-sm-3 placeholder">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                <h4>Label</h4>
+                <span class="text-muted">Something else</span>
+              </div>
+              <div class="col-xs-6 col-sm-3 placeholder">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                <h4>Label</h4>
+                <span class="text-muted">Something else</span>
+              </div>
+            </div> -->
+
+            <h1 class="sub-header">银行数据总览结果</h1>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>银行种类</th>
+                        <th>银行名称</th>
+                        <th>银行层级</th>
+                        <th>省份</th>
+                        <th>城市</th>
+                        <th>区县</th>
+                        <th>地址</th>
+                        <th>电话</th>
+                        <th>上级机构</th>
+                        <th>经度</th>
+                        <th>纬度</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c:${page.list}">
+                        <td th:text="${c.id}"></td>
+                        <td th:text="${c.bankType}"></td>
+                        <td th:text="${c.bankName}"></td>
+                        <td th:text="${c.bankLevel}"></td>
+                        <td th:text="${c.province}"></td>
+                        <td th:text="${c.city}"></td>
+                        <td th:text="${c.area}"></td>
+                        <td th:text="${c.address}"></td>
+                        <td th:text="${c.telephone}"></td>
+                        <td th:text="${c.parentBank}"></td>
+                        <td th:text="${c.longitudeX}"></td>
+                        <td th:text="${c.latitudeY}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br/>
+            <div>
+                <a th:href="@{/dashboard(start=0)}">[首  页]</a>
+                <a th:href="@{/dashboard(start=${page.pageNum-1})}">[上一页]</a>
+                <a th:href="@{/dashboard(start=${page.pageNum+1})}">[下一页]</a>
+                <a th:href="@{/dashboard(start=${page.pages})}">[末  页]</a>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/bootstrap/jquery.min.js.下载"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="/bootstrap/bootstrap.min.js.下载"></script>
+
+<!--省、市、区三级联动静态代码-->
+<script src="/js/city.js"></script>
+<script src="/js/method01.js"></script>
+
+
+</body></html>

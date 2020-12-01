@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div style="width:1000px;margin:200px auto;text-align: center">
+    <table align='center' border='1' cellspacing='0'>
+        <tr>
+            <td>ID</td>
+            <td>银行种类</td>
+            <td>银行名称</td>
+            <td>银行层级</td>
+            <td>省份</td>
+            <td>城市</td>
+            <td>区县</td>
+            <td>地址</td>
+            <td>电话</td>
+            <td>上级机构</td>
+            <td>经度</td>
+            <td>纬度</td>
+        </tr>
+        <tr th:each="c:${page.list}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.bankType}"></td>
+            <td th:text="${c.bankName}"></td>
+            <td th:text="${c.bankLevel}"></td>
+            <td th:text="${c.province}"></td>
+            <td th:text="${c.city}"></td>
+            <td th:text="${c.area}"></td>
+            <td th:text="${c.address}"></td>
+            <td th:text="${c.telephone}"></td>
+            <td th:text="${c.parentBank}"></td>
+            <td th:text="${c.longitudeX}"></td>
+            <td th:text="${c.latitudeY}"></td>
+        </tr>
+    </table>
+    <br/>
+    <div>
+        <a th:href="@{/listBankData(start=0)}">[首  页]</a>
+        <a th:href="@{/listBankData(start=${page.pageNum-1})}">[上一页]</a>
+        <a th:href="@{/listBankData(start=${page.pageNum+1})}">[下一页]</a>
+        <a th:href="@{/listBankData(start=${page.pages})}">[末  页]</a>
+    </div>
+    <br/>
+</div>
+
+</body>
+</html>
