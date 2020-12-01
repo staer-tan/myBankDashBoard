@@ -34,14 +34,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="https://v3.bootcss.com/examples/dashboard/#">银行大数据平台</a>
+            <a class="navbar-brand" th:href="@{/dashboard(start=0)}">银行大数据平台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Dashboard</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Settings</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">Help</a></li>
+                <li><a th:href="@{/dashboard(start=0)}">搜索</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -52,47 +49,48 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2 sidebar">
+        <div class="col-md-1.5 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a th:href="@{/dashboard(start=0)}">总览 <span class="sr-only">(current)</span></a></li>
                 <li><a th:href="@{/bankofchina(start=0)}">中国银行</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">交通银行</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">招商银行</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">中国农业银行</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">中国建设银行</a></li>
-                <li><a href="https://v3.bootcss.com/examples/dashboard/#">邮政储蓄银行</a></li>
+                <li><a th:href="@{/comm(start=0)}">交通银行</a></li>
+                <li><a th:href="@{/cmb(start=0)}">招商银行</a></li>
+                <li><a th:href="@{/icbc(start=0)}">中国工商银行</a></li>
+                <li><a th:href="@{/abc(start=0)}">中国农业银行</a></li>
+                <li><a th:href="@{/ccb(start=0)}">中国建设银行</a></li>
+                <li><a th:href="@{/psbc(start=0)}">邮政储蓄银行</a></li>
+                <li><a th:href="@{/citic(start=0)}">中信银行</a></li>
+                <li><a th:href="@{/cib(start=0)}">兴业银行</a></li>
             </ul>
         </div>
-        <div class="col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">Dashboard</h1>
-            <div class="dropdown">
-                <form action="#">
-                    <label for="addr-show">您选择的是：
-                        <input type="text" value="" id="addr-show">
-                    </label>
-                    <br/>
-
+        <div class="col-md-11 col-md-offset-1 main">
+            <h3 class="sub-header">搜索</h3>
+<!--                <label for="addr-show">您选择的是：-->
+<!--                    <input type="text" value="" id="addr-show">-->
+<!--                </label>-->
+                <div class="form-group form-inline">
                     <!--省份选择-->
-                    <select id="prov" onchange="showCity(this)">
-                        <option>=请选择省份=</option>
-
+                    <select class="selectpicker form-control" id="prov" onchange="showCity(this)">
+                        <option>-请选择省份-</option>
                     </select>
 
                     <!--城市选择-->
-                    <select id="city" onchange="showCountry(this)">
-                        <option>=请选择城市=</option>
+                    <select class="selectpicker form-control" id="city" onchange="showCountry(this)">
+                        <option>-请选择城市-</option>
                     </select>
 
                     <!--县区选择-->
-                    <select id="country" onchange="selecCountry(this)">
-                        <option>=请选择县区=</option>
+                    <select class="selectpicker form-control" id="country" onchange="selecCountry(this)">
+                        <option>-请选择县区-</option>
                     </select>
+
                     <button type="button" class="btn met1" onClick="showAddr()">确定</button>
-                    <a th:href="@{/searchBank(searchStr=id)}">
-                        <button>点我跳转到度娘！</button>
-                    </a>
-                </form>
-            </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" for="addr-show">您选择的是</span>
+                        <input type="text" class="form-control" placeholder="地址" aria-describedby="basic-addon1" value="" id="addr-show">
+                    </div>
+                 </div>
 
             <!-- <div class="row placeholders">
               <div class="col-xs-6 col-sm-3 placeholder">
@@ -117,7 +115,7 @@
               </div>
             </div> -->
 
-            <h1 class="sub-header">银行数据总览结果</h1>
+            <h2 class="sub-header">银行数据总览</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -155,11 +153,11 @@
                 </table>
             </div>
             <br/>
-            <div>
-                <a th:href="@{/dashboard(start=0)}">[首  页]</a>
-                <a th:href="@{/dashboard(start=${page.pageNum-1})}">[上一页]</a>
-                <a th:href="@{/dashboard(start=${page.pageNum+1})}">[下一页]</a>
-                <a th:href="@{/dashboard(start=${page.pages})}">[末  页]</a>
+            <div class="col-md-offset-4 main">
+                <a th:href="@{/dashboard(start=0)}" class="btn btn-default" role="button">首页</a>
+                <a th:href="@{/dashboard(start=${page.pageNum-1})}" class="btn btn-default" role="button">上一页</a>
+                <a th:href="@{/dashboard(start=${page.pageNum+1})}" class="btn btn-default" role="button">下一页</a>
+                <a th:href="@{/dashboard(start=${page.pages})}" class="btn btn-default" role="button">末  页</a>
             </div>
             <br/>
         </div>

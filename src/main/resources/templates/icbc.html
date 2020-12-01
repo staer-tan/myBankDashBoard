@@ -52,10 +52,10 @@
         <div class="col-md-1.5 sidebar">
             <ul class="nav nav-sidebar">
                 <li><a th:href="@{/dashboard(start=0)}">总览 </a></li>
-                <li class="active"><a th:href="@{/bankofchina(start=0)}">中国银行<span class="sr-only">(current)</span></a></li>
+                <li><a th:href="@{/bankofchina(start=0)}">中国银行</a></li>
                 <li><a th:href="@{/comm(start=0)}">交通银行</a></li>
                 <li><a th:href="@{/cmb(start=0)}">招商银行</a></li>
-                <li><a th:href="@{/icbc(start=0)}">中国工商银行</a></li>
+                <li class="active"><a th:href="@{/icbc(start=0)}">中国工商银行<span class="sr-only">(current)</span></a></li>
                 <li><a th:href="@{/abc(start=0)}">中国农业银行</a></li>
                 <li><a th:href="@{/ccb(start=0)}">中国建设银行</a></li>
                 <li><a th:href="@{/psbc(start=0)}">邮政储蓄银行</a></li>
@@ -150,10 +150,10 @@
             </div>
             <br/>
             <div class="col-md-offset-4 main">
-                <a th:href="@{/bankofchina(start=0)}" class="btn btn-default" role="button">首页</a>
-                <a th:href="@{/bankofchina(start=${page.pageNum-1})}" class="btn btn-default" role="button">上一页</a>
-                <a th:href="@{/bankofchina(start=${page.pageNum+1})}" class="btn btn-default" role="button">下一页</a>
-                <a th:href="@{/bankofchina(start=${page.pages})}" class="btn btn-default" role="button">末  页</a>
+                <a th:href="@{/icbc(start=0)}" class="btn btn-default" role="button">首页</a>
+                <a th:href="@{/icbc(start=${page.pageNum-1})}" class="btn btn-default" role="button">上一页</a>
+                <a th:href="@{/icbc(start=${page.pageNum+1})}" class="btn btn-default" role="button">下一页</a>
+                <a th:href="@{/icbc(start=${page.pages})}" class="btn btn-default" role="button">末  页</a>
             </div>
             <br/>
         </div>
